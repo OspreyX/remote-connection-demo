@@ -24,6 +24,8 @@
 
         launchBrowserButton.addEventListener('click', function() {
             var uuid = 'remote-connection-' + Math.random().toString(36).substring(7);
+
+            //Here we register the external connection, this will create a token and allow the browser to connect by using it.
             fin.desktop.System.registerExternalConnection(uuid, function(config) {
                 fin.desktop.System.openUrlWithBrowser(document.URL.replace('index.html', 'external.html') + '?uuid=' + uuid + '&token=' + config.token);
                 document.querySelector('#token').innerText = config.token;
