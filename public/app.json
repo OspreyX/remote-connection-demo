@@ -1,0 +1,22 @@
+{
+    "devtools_port": 9090,
+    "startup_app": {
+        "name": "remote-connection-demo",
+        "url": "http://localhost:5000/index.html",
+        "uuid": "remote-connection-demo",
+        "applicationIcon": "http://localhost:5000/favicon.ico",
+        "autoShow": true,
+        "defaultHeight": 800,
+        "defaultWidth": 800
+    },
+    "runtime": {
+        "arguments": "",
+        "version": "brokered-connections"
+    },
+    "shortcut": {
+        "company": "OpenFin",
+        "description": "demo for the remote connection feature.",
+        "icon": "http://localhost:5000/favicon.ico",
+        "name": "remote-connection-demo"
+    }
+}
