@@ -42,13 +42,13 @@
         return qStringVars;
     };
 
-    var connectToOpenFin = function(token, uuid) {
-        //This is the configuration object needed for external connections, at the moment we are hard coding the PORT and ssl.
+    var connectToOpenFin = function(token, uuid, port) {
+        //This is the configuration object needed for external connections, at the moment we are hard coding ssl.
         var config = {
             token: token,
             app_uuid: uuid,
             name: uuid,
-            port: 9696,
+            port: port,
             ssl: false,
             fulfilled: true
         };
@@ -58,7 +58,7 @@
     document.addEventListener('DOMContentLoaded', function() {
         //Get the query string parameters and connect to OpenFin:
         var queryStringParams = getQueryStringParams();
-        connectToOpenFin(queryStringParams.token, queryStringParams.uuid);
+        connectToOpenFin(queryStringParams.token, queryStringParams.uuid, queryStringParams.port);
 
         //OpenFin is ready
         fin.desktop.main(function() {

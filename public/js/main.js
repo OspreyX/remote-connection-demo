@@ -22,15 +22,25 @@
     var setlaunchBrowserEventHandler = function() {
         var launchBrowserButton = document.querySelector('#launch-browser');
 
-        launchBrowserButton.addEventListener('click', function() {
-            var uuid = 'remote-connection-' + Math.random().toString(36).substring(7);
+        getOpenFinPort(function(port) {
+            launchBrowserButton.addEventListener('click', function() {
+                var uuid = 'remote-connection-' + Math.random().toString(36).substring(7);
+                //Here we register the external connection, this will create a token and allow the browser to connect by using it.
+                fin.desktop.System.registerExternalConnection(uuid, function(config) {
+                    var queryString = '?uuid=' + uuid + '&token=' + config.token + '&port=' + port;
 
-            //Here we register the external connection, this will create a token and allow the browser to connect by using it.
-            fin.desktop.System.registerExternalConnection(uuid, function(config) {
-                fin.desktop.System.openUrlWithBrowser(document.URL.replace('index.html', 'external.html') + '?uuid=' + uuid + '&token=' + config.token);
-                document.querySelector('#token').innerText = config.token;
-                document.querySelector('#uuid').innerText = uuid;
+                    //Open the External link with the the uuid, token and port information.
+                    fin.desktop.System.openUrlWithBrowser(document.URL.replace('index.html', 'external.html') + queryString);
+                    document.querySelector('#token').innerText = config.token;
+                    document.querySelector('#uuid').innerText = uuid;
+                });
             });
+        });
+    };
+
+    var getOpenFinPort = function(callBack) {
+        chrome.desktop.getDetails(function(token, name, uuid, port) {
+            callBack(port);
         });
     };
 
